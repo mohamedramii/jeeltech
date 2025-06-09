@@ -5,9 +5,11 @@ import CategoryCard from '../components/cards/categories/CategoryCard';
 import { ToggleSwitch, RadioButton } from '../components/selectioncontrol';
 import CourseTrackerShowcase from '../components/coursetracker/CourseTrackerShowcase';
 import AIChatInputWrapper from '../components/chat/AIChatInputWrapper';
+import { LearningHoursChart, CompletedLessonsChart, CourseDistributionChart, LoginCountChart, TopLessonsChart } from '../components/charts';
 import Image from 'next/image';
 import image1 from "../../public/image1.svg";
 import image2 from "../../public/image2.png";
+import { ActivityCardWrapper } from '../components/cards/activity';
 const Page = () => {
   return (
     <div className="p-4">
@@ -269,7 +271,44 @@ const Page = () => {
           <AIChatInputWrapper variant="B" />
         </div>
       </div>
+      {/* إحصائيات التعلم */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold mb-4 text-right">إحصائيات التعلم</h3>
+        <div className="grid grid-cols-1 gap-8 mb-8">
+          <LearningHoursChart 
+            totalHours={35} 
+            growthPercentage={1.3} 
+            currentMonth="مايو 2024" 
+            currentMonthHours={8}
+          />
+          
+          <CompletedLessonsChart 
+            selectedMonth="مايو 2024"
+          />
+        </div>
+      </div>
       
+      {/* بطاقة النشاط */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold mb-4 text-right">آخر الأنشطة</h3>
+        <ActivityCardWrapper/>  
+      </div>
+
+      <CourseDistributionChart/>
+      
+      {/* إحصائيات تسجيل الدخول */}
+      <div className="mb-8 mt-8">
+        <h3 className="text-lg font-semibold mb-4 text-right">إحصائيات تسجيل الدخول</h3>
+        <LoginCountChart />
+      </div>
+      
+      {/* أعلى الدروس مشاهدة */}
+      <div className="mb-8 mt-8">
+        <h3 className="text-lg font-semibold mb-4 text-right">أعلى الدروس مشاهدة</h3>
+        <div className="flex justify-center md:justify-start">
+          <TopLessonsChart />
+        </div>
+      </div>
     </div>
   )
 }
