@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import { CalendarCheck } from '@phosphor-icons/react';
 
@@ -19,44 +18,43 @@ export default function ActivityCard({
   ...props
 }) {
   return (
-    <div 
+    <div
       className={`
-        box-sizing border-box relative w-[348.8px] h-[104px] 
+        relative w-[348.8px] h-[104px]
         bg-[#E4FAF2] border-[1.5px] border-[#56E8AE] rounded-2xl
+        flex items-center justify-end
+        px-6 py-4
         overflow-hidden
         ${className}
       `}
       onClick={onClick}
       {...props}
     >
-      {/* Background Elements */}
-      <div className="absolute w-[191px] h-[167.85px] left-[0px] top-[-0
-      px]">
-        {/* Ellipse 6 */}
-        <div className="box-border absolute w-[136.59px] h-[136.59px] left-[-72px] top-[-84px] border border-[#AAF4D7] rounded-full"></div>
-        {/* Ellipse 7 */}
-        <div className="box-border absolute w-[136.59px] h-[136.59px] left-[-17.59px] top-[-52.75px] border border-[#AAF4D7] rounded-full"></div>
+      {/* Background Decorative Elements */}
+      <div className="absolute left-0 top-0 pointer-events-none">
+        <div className="w-[136.59px] h-[136.59px] border border-[#AAF4D7] rounded-full -translate-x-[72px] -translate-y-[84px]"></div>
+        <div className="w-[136.59px] h-[136.59px] border border-[#AAF4D7] rounded-full -translate-x-[17.59px] -translate-y-[52.75px] absolute top-0 left-0"></div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-row justify-end items-start gap-4 absolute w-[218px] h-[56px] left-[106.8px] top-[24px]">
+      {/* Main Content */}
+      <div className="w-full flex items-center gap-4 z-10">
         {/* Icon Container */}
-        <div className="w-[56px] h-[56px] bg-white rounded-lg flex items-center justify-center">
+        <div className="w-[56px] h-[56px] bg-white rounded-lg flex items-center justify-center flex-shrink-0">
           <CalendarCheck size={32} weight="regular" color="#01DD86" />
         </div>
         {/* Text Container */}
-        <div className="flex flex-col items-end gap-1 w-[146px]">
+        <div className="flex flex-col  gap-1">
           {/* Date */}
-          <h3 className="w-full text-right font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-[#222222]">
+          <h3 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-[#222222] text-right">
             {dayCount}
           </h3>
           {/* Activity */}
-          <p className="w-full text-right font-['Noto_Kufi_Arabic'] font-normal text-base leading-6 text-[#6C6C6C]">
+          <p className="font-['Noto_Kufi_Arabic'] font-normal text-base leading-6 text-[#6C6C6C] text-right">
             {activityText}
           </p>
         </div>
 
-       
+        
       </div>
     </div>
   );
