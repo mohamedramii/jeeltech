@@ -206,13 +206,16 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
 
   return (
     <div 
-      className={`box-border flex flex-row justify-end items-end p-6 relative w-full md:max-w-[908px] h-auto md:h-[409px] bg-white border border-[#CECECE] rounded-2xl ${className}`}
+      className={`box-border flex flex-row justify-end items-end p-6 relative w-full md:max-w-[908px] h-full  bg-white border border-[#CECECE] rounded-2xl ${className}`}
       {...props}
     >
       <div className="flex flex-col justify-end items-end w-full h-full gap-4">
-        {/* رأس البطاقة */}
         <div className="flex flex-row justify-between items-start w-full">
-          {/* زر الفترة الزمنية */}
+          <div className="flex flex-col items-end">
+            <h2 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-right text-[#222222] mb-1">
+              عدد الدروس المكتملة
+            </h2>
+          </div>
           <button
             onClick={handlePeriodChange}
             className="flex flex-row justify-center items-center py-2 px-4 gap-1 h-8 border-[0.5px] border-[#6C6C6C] rounded-lg"
@@ -223,14 +226,9 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
             </span>
           </button>
           
-          <div className="flex flex-col items-end">
-            <h2 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-right text-[#222222] mb-1">
-              عدد الدروس المكتملة
-            </h2>
-          </div>
         </div>
         
-        <div className="flex flex-row justify-between items-end w-full h-[270px] relative">
+        <div className="flex flex-row justify-between items-end w-full h-full relative">
           <div className="w-full h-full relative">
             {isClient && (
               <ReactApexChart 

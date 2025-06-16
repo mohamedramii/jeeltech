@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import ActivityCard from '../../components/cards/activity/ActivityCard';
@@ -31,8 +30,8 @@ const TopLessonsChart = dynamic(() => import('../../components/charts/TopLessons
 
 function ChartPlaceholder({ height }) {
   return (
-    <div 
-      className="w-full rounded-2xl bg-white border border-[#CECECE] p-6 flex items-center justify-center" 
+    <div
+      className="w-full rounded-2xl bg-white border border-[#CECECE] p-6 flex items-center justify-center"
       style={{ height }}
     >
       <div className="text-gray-400 animate-pulse">جاري تحميل المخطط...</div>
@@ -40,14 +39,13 @@ function ChartPlaceholder({ height }) {
   );
 }
 
-
 export default function StatsClient() {
   const [isClient, setIsClient] = useState(false);
-
+  
   useEffect(() => {
     setIsClient(true);
   }, []);
-
+  
   const activityData = [
     {
       dayCount: "3",
@@ -73,7 +71,6 @@ export default function StatsClient() {
 
   return (
     <div className="w-full max-w-full">
-
       <div className="mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {activityData.map((activity, index) => (
@@ -91,17 +88,17 @@ export default function StatsClient() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
             {isClient && (
-              <LearningHoursChart 
-                totalHours={35} 
-                growthPercentage={1.3} 
-                currentMonth="مايو 2024" 
+              <LearningHoursChart
+                totalHours={35}
+                growthPercentage={1.3}
+                currentMonth="مايو 2024"
                 currentMonthHours={8}
               />
             )}
           </div>
           <div>
             {isClient && (
-              <CompletedLessonsChart 
+              <CompletedLessonsChart
                 selectedMonth="مايو 2024"
               />
             )}
@@ -111,24 +108,26 @@ export default function StatsClient() {
 
       {isClient && (
         <div className="mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col lg:flex-row  gap-6">
             <Suspense fallback={<ChartPlaceholder height="350px" />}>
-              <div className="w-full">
+              <div className="w-full lg:w-[55%]">
                 <LoginCountChart />
               </div>
             </Suspense>
-            <Suspense fallback={<ChartPlaceholder height="400px" />}>
-              <div>
-                <CourseDistributionChart />
-              </div>
-            </Suspense>
-            
-            <Suspense fallback={<ChartPlaceholder height="400px" />}>
-              <div className="flex justify-center">
-                <TopLessonsChart />
-              </div>
-            </Suspense>
-            
+
+            <div className="flex flex-row gap-6 w-full lg:w-[45%]">
+              <Suspense fallback={<ChartPlaceholder height="400px" />}>
+                <div className="w-full">
+                  <TopLessonsChart />
+                </div>
+              </Suspense>
+              <Suspense fallback={<ChartPlaceholder height="400px" />}>
+                <div className="w-full">
+                  <CourseDistributionChart />
+                </div>
+              </Suspense>
+              
+            </div>
           </div>
         </div>
       )}

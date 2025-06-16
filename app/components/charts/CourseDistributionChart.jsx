@@ -1,17 +1,15 @@
 'use client';
 
-
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
   ssr: false,
   loading: () => (
-    <div className="w-full h-[300px] flex items-center justify-center bg-white">
+    <div className="w-full h-[196px] flex items-center justify-center bg-white">
       <p className="text-gray-400">جاري تحميل الرسم البياني...</p>
     </div>
   ) 
 });
-
 
 export default function CourseDistributionChart({
   courses = [
@@ -29,6 +27,7 @@ export default function CourseDistributionChart({
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
   const seriesData = courses.map(course => (course.hours * 60) + course.minutes);
   const colors = courses.map(course => course.color);
  
@@ -36,6 +35,8 @@ export default function CourseDistributionChart({
     chart: {
       type: 'donut',
       fontFamily: 'Noto Kufi Arabic, sans-serif',
+      height: 196,
+      width: 196,
     },
     colors: colors,
     labels: courses.map(course => course.name),
@@ -50,19 +51,18 @@ export default function CourseDistributionChart({
             show: true,
             name: {
               show: true,
-              fontSize: '14px',
+              fontSize: '12px',
               fontFamily: 'Noto Kufi Arabic, sans-serif',
               color: '#222222',
-              offsetY: -10
+              offsetY: -8
             },
             value: {
               show: true,
-              fontSize: '24px',
+              fontSize: '18px',
               fontFamily: 'Noto Kufi Arabic, sans-serif',
               fontWeight: 700,
               color: '#222222',
               formatter: function(val) {
-                // تحويل القيمة إلى ساعات ودقائق
                 const hours = Math.floor(val / 60);
                 const minutes = Math.floor(val % 60);
                 return `${hours} س ${minutes} د`;
@@ -73,7 +73,7 @@ export default function CourseDistributionChart({
               label: 'إجمالي الوقت',
               color: '#222222',
               fontFamily: 'Noto Kufi Arabic, sans-serif',
-              fontSize: '16px',
+              fontSize: '14px',
               fontWeight: 600,
               formatter: function() {
                 const parts = totalTime.split(' ');
@@ -102,7 +102,8 @@ export default function CourseDistributionChart({
         breakpoint: 768,
         options: {
           chart: {
-            height: 250
+            height: 196,
+            width: 196,
           }
         }
       }
@@ -126,21 +127,21 @@ export default function CourseDistributionChart({
 
   return (
     <div
-      className={`box-border flex flex-col justify-center items-center p-6 relative w-full  h-auto bg-white border border-[#CECECE] rounded-2xl ${className}`}
+      className={`box-border flex flex-col justify-center items-center p-6 relative w-full h-auto bg-white border border-[#CECECE] rounded-2xl ${className}`}
       {...props}
     >
       <h2 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-right text-[#222222] mb-4 w-full">
         توزيع التعلم بين الكورسات
       </h2>
      
-      <div className="w-full h-[300px] mb-4">
+      <div className="w-[196px] h-[196px] mb-4 flex justify-center items-center">
         {isClient && (
           <ReactApexChart
             options={chartOptions}
             series={series}
             type="donut"
-            height="100%"
-            width="100%"
+            height={196}
+            width={196}
           />
         )}
       </div>
