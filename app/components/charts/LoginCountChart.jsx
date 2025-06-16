@@ -286,7 +286,7 @@ export default function LoginCountChart({
 
   return (
     <div 
-      className={`box-border relative w-full p-6 bg-white border border-[#CECECE] rounded-2xl shadow-sm ${className}`}
+      className={`box-border relative w-full p-6 bg-white border border-[#CECECE] rounded-2xl  ${className}`}
       {...props}
     >
       <div className="w-full h-[350px] mt-2">
