@@ -1,27 +1,15 @@
 'use client';
-/* 
-هذا المكون هو مكون على جانب العميل فقط 
-لا يمكن تقديمه على جانب الخادم
-*/
 
 import React, { useState, useEffect } from 'react';
 
-/**
- * مكون رسم بياني لعرض أعلى الدروس التي تمت مشاهدتها
- * @param {Object} props - خصائص المكون
- * @param {Array} props.data - بيانات الدروس (اختياري)
- * @param {string} props.className - فئات CSS إضافية (اختياري)
- */
+
 export default function TopLessonsChart({ lessons = [], className = '', ...props }) {
-  // حالة للتحقق من أننا على جانب العميل
   const [isClient, setIsClient] = useState(false);
 
-  // التأكد من أننا على جانب العميل قبل عرض الرسم البياني
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // البيانات الافتراضية للدروس الأكثر مشاهدة
   const defaultLessons = [
     { course: "Scratch", lessonCount: 17 },
     { course: "HTML", lessonCount: 15 },
@@ -31,18 +19,13 @@ export default function TopLessonsChart({ lessons = [], className = '', ...props
     { course: "Java script", lessonCount: 13 }
   ];
 
-  // استخدام البيانات المقدمة أو البيانات الافتراضية
   const chartData = lessons.length > 0 ? lessons : defaultLessons;
 
-  // حساب العرض النسبي للأشرطة بناءً على عدد الدروس
   const getBarWidth = (count) => {
-    // احسب أقصى عدد دروس
     const maxCount = Math.max(...chartData.map(item => item.lessonCount));
     
-    // احسب النسبة المئوية من الحد الأقصى (بين 60% و 100%)
     const percentage = 60 + (count / maxCount) * 40;
     
-    // عودة بالنسبة المئوية للعرض
     return `${percentage}%`;
   };
 

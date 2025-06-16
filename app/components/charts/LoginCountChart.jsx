@@ -1,15 +1,9 @@
 'use client';
 
-/* 
-هذا المكون هو مكون على جانب العميل فقط 
-لا يمكن تقديمه على جانب الخادم
-*/
 
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 
-// استيراد ديناميكي مع loading state
-// استيراد ديناميكي مع تعطيل التقديم على جانب الخادم صراحةً
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
   ssr: false,
   loading: () => (
@@ -19,12 +13,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   )
 });
 
-/**
- * مكون رسم بياني لعرض عدد مرات تسجيل الدخول لكل شهر
- * @param {Object} props - خصائص المكون
- * @param {Array} props.data - بيانات الدخول الشهرية
- * @param {string} props.className - فئات CSS إضافية
- */
+
 export default function LoginCountChart({
   data = [], 
   className = "",
@@ -32,12 +21,10 @@ export default function LoginCountChart({
 }) {
   const [isClient, setIsClient] = useState(false);
 
-  // التأكد من أننا في جانب العميل
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // البيانات الافتراضية
   const defaultData = useMemo(() => [
     { month: 'يناير', count: 48, color: '#B0F1C8' },
     { month: 'فبراير', count: 8, color: '#B0F1C8' },
@@ -53,24 +40,20 @@ export default function LoginCountChart({
     { month: 'ديسمبر', count: 10, color: '#FCD46D' }
   ], []);
 
-  // استخدام useMemo لتحسين الأداء
   const chartData = useMemo(() => {
     return data.length > 0 ? data : defaultData;
   }, [data, defaultData]);
   
-  // تهيئة سلاسل البيانات
   const series = useMemo(() => [{
     name: 'عدد مرات الدخول',
     data: chartData.map(item => item.count)
   }], [chartData]);
 
-  // تحديد أقصى قيمة لضبط Y-axis
   const maxValue = useMemo(() => {
     const max = Math.max(...chartData.map(item => item.count));
-    return Math.ceil(max / 10) * 10; // تقريب لأعلى عشرة
+    return Math.ceil(max / 10) * 10; 
   }, [chartData]);
 
-  // تهيئة خيارات الرسم البياني
   const chartOptions = useMemo(() => ({
     chart: {
       type: 'bar',
@@ -107,12 +90,12 @@ export default function LoginCountChart({
       formatter: function(val) {
         return val;
       },
-      offsetY: -30, // رفع الأرقام أكثر لأعلى (كان -25)
+      offsetY: -30, 
       style: {
         fontSize: '14px',
         fontFamily: 'Noto Kufi Arabic, sans-serif',
         fontWeight: '600',
-        colors: ["#374151"] // لون أغمق للوضوح
+        colors: ["#374151"] 
       }
     },
     xaxis: {
@@ -137,7 +120,7 @@ export default function LoginCountChart({
     yaxis: {
       show: true,
       min: 0,
-      max: 120, // زيادة المدى لاستيعاب "عدد المرات"
+      max: 120, 
       tickAmount: 6,
       labels: {
         show: true,
@@ -149,7 +132,6 @@ export default function LoginCountChart({
           fontWeight: 400
         },
         formatter: (value) => {
-          // تحديد القيم المحددة بدقة
           const roundedValue = Math.round(value);
           if (roundedValue === 0) return '0';
           if (roundedValue === 20) return '5';
@@ -289,7 +271,6 @@ export default function LoginCountChart({
     ]
   }), [chartData, maxValue]);
 
-  // عدم عرض المكون حتى يتم التحميل في جانب العميل
   if (!isClient) {
     return (
       <div 
@@ -309,7 +290,6 @@ export default function LoginCountChart({
       {...props}
     >
       <div className="w-full h-[350px] mt-2">
-        {/* تقديم الرسم البياني فقط على جانب العميل */}
         {isClient && (
           <ReactApexChart 
           options={chartOptions} 

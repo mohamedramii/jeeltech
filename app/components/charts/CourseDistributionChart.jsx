@@ -1,13 +1,8 @@
 'use client';
 
-/* 
-هذا المكون هو مكون على جانب العميل فقط 
-لا يمكن تقديمه على جانب الخادم
-*/
+
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-// استيراد ديناميكي لتجنب مشاكل التوافق بين الخادم والعميل
-// استيراد ديناميكي مع تعطيل التقديم على جانب الخادم صراحةً
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
   ssr: false,
   loading: () => (
@@ -17,13 +12,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ) 
 });
 
-/**
- * مكون رسم بياني دائري لتوزيع التعلم بين الكورسات
- * @param {Object} props - خصائص المكون
- * @param {Object[]} props.courses - بيانات الكورسات مع الساعات
- * @param {string} props.totalTime - إجمالي الوقت كنص
- * @param {string} props.className - فئات CSS إضافية
- */
+
 export default function CourseDistributionChart({
   courses = [
     { name: 'HTML', hours: 6, minutes: 15, color: '#E34C26' },
@@ -35,18 +24,14 @@ export default function CourseDistributionChart({
   className = "",
   ...props
 }) {
-  // حالة للتحقق من أننا على جانب العميل
   const [isClient, setIsClient] = useState(false);
 
-  // التأكد من أننا على جانب العميل قبل عرض الرسم البياني
   useEffect(() => {
     setIsClient(true);
   }, []);
-  // تحويل الساعات والدقائق إلى دقائق كلية لكل دورة
   const seriesData = courses.map(course => (course.hours * 60) + course.minutes);
   const colors = courses.map(course => course.color);
  
-  // إعدادات الرسم البياني
   const chartOptions = {
     chart: {
       type: 'donut',
@@ -91,15 +76,12 @@ export default function CourseDistributionChart({
               fontSize: '16px',
               fontWeight: 600,
               formatter: function() {
-                // تحليل totalTime وإعادة ترتيبه
                 const parts = totalTime.split(' ');
                 if (parts.length >= 4) {
-                  // إذا كان التنسيق مثل "6 ساعات و 30 دقيقة"
                   const hours = parts[0];
                   const minutes = parts[3];
                   return `${hours} س ${minutes} د`;
                 } else if (totalTime.includes('س')) {
-                  // إذا كان التنسيق مثل "30س"
                   const match = totalTime.match(/(\d+)س/);
                   if (match) {
                     return `${match[1]} ساعة`;
@@ -113,7 +95,7 @@ export default function CourseDistributionChart({
       }
     },
     legend: {
-      show: false // إخفاء Legend الافتراضية
+      show: false 
     },
     responsive: [
       {
@@ -132,7 +114,6 @@ export default function CourseDistributionChart({
 
   const series = seriesData;
 
-  // تقسيم الكورسات إلى أعمدة (كل عمود 5 عناصر كحد أقصى)
   const createColumns = (items, itemsPerColumn = 5) => {
     const columns = [];
     for (let i = 0; i < items.length; i += itemsPerColumn) {
@@ -153,7 +134,6 @@ export default function CourseDistributionChart({
       </h2>
      
       <div className="w-full h-[300px] mb-4">
-        {/* تقديم الرسم البياني فقط على جانب العميل */}
         {isClient && (
           <ReactApexChart
             options={chartOptions}
@@ -165,7 +145,6 @@ export default function CourseDistributionChart({
         )}
       </div>
 
-      {/* Legend مخصص */}
       <div className="flex flex-wrap justify-start gap-4 w-full">
         {courseColumns.map((column, columnIndex) => (
           <div key={columnIndex} className="flex flex-col gap-2">

@@ -3,7 +3,6 @@ import { CourseCardWrapper } from '@/app/components/cards/courses';
 import CategoryButton from '@/app/components/buttons/CategoryButton';
 
 export default function CoursesPage() {
-  // الفئات المتاحة للدورات
   const categories = [
     'جميع الدورات',
     'دورات البرمجة',
@@ -13,7 +12,6 @@ export default function CoursesPage() {
     'دورات الذكاء الاصطناعي'
   ];
   
-  // بيانات الدورات المعروضة
   const courses = [
     {
       id: 1,
@@ -123,7 +121,6 @@ export default function CoursesPage() {
         <div className="flex flex-row justify-between items-center mb-4">
           <h1 className="text-[32px] font-bold font-['Noto_Kufi_Arabic']">الدورات التدريبية</h1>
           
-          {/* قسم التصنيفات */}
           <div className="flex flex-row flex-wrap gap-3">
             {categories.map((category, index) => (
               <CategoryButton 
@@ -135,11 +132,11 @@ export default function CoursesPage() {
           </div>
         </div>
         
-        {/* عرض الدورات */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {courses.map((course) => (
             <CourseCardWrapper
               key={course.id}
+              id={course.id}
               title={course.title}
               imageSrc={course.imageSrc}
               hasCertificate={course.hasCertificate}

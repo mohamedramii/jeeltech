@@ -4,7 +4,6 @@ import React, { useState, useEffect, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import ActivityCard from '../../components/cards/activity/ActivityCard';
 
-// استيراد ديناميكي للمكونات الثقيلة لتحسين الأداء
 const LearningHoursChart = dynamic(() => import('../../components/charts/LearningHoursChart'), {
   ssr: false,
   loading: () => <ChartPlaceholder height="400px" />
@@ -30,7 +29,6 @@ const TopLessonsChart = dynamic(() => import('../../components/charts/TopLessons
   loading: () => <ChartPlaceholder height="400px" />
 });
 
-// مكون بسيط للعرض أثناء تحميل المخططات
 function ChartPlaceholder({ height }) {
   return (
     <div 
@@ -42,18 +40,14 @@ function ChartPlaceholder({ height }) {
   );
 }
 
-/**
- * مكون عميل لصفحة الإحصائيات يعرض المخططات البيانية
- */
+
 export default function StatsClient() {
   const [isClient, setIsClient] = useState(false);
 
-  // التأكد من أننا في جانب العميل قبل عرض المخططات
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // بيانات بطاقات النشاط
   const activityData = [
     {
       dayCount: "3",
@@ -80,7 +74,6 @@ export default function StatsClient() {
   return (
     <div className="w-full max-w-full">
 
-      {/* الصف الأول: كروت النشاط */}
       <div className="mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {activityData.map((activity, index) => (
@@ -94,7 +87,6 @@ export default function StatsClient() {
         </div>
       </div>
 
-      {/* الصف الثاني: مخططات ساعات التعلم والدروس المكتملة */}
       <div className="mb-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div>
@@ -117,10 +109,14 @@ export default function StatsClient() {
         </div>
       </div>
 
-      {/* الصف الثالث: ثلاث مخططات - تحميل تدريجي */}
       {isClient && (
         <div className="mb-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Suspense fallback={<ChartPlaceholder height="350px" />}>
+              <div className="w-full">
+                <LoginCountChart />
+              </div>
+            </Suspense>
             <Suspense fallback={<ChartPlaceholder height="400px" />}>
               <div>
                 <CourseDistributionChart />
@@ -133,11 +129,6 @@ export default function StatsClient() {
               </div>
             </Suspense>
             
-            <Suspense fallback={<ChartPlaceholder height="350px" />}>
-              <div className="w-full">
-                <LoginCountChart />
-              </div>
-            </Suspense>
           </div>
         </div>
       )}

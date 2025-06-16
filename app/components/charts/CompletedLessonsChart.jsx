@@ -1,16 +1,11 @@
 'use client';
 
-/* 
-هذا المكون هو مكون على جانب العميل فقط 
-لا يمكن تقديمه على جانب الخادم
-*/
+
 
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { CaretDown } from '@phosphor-icons/react';
 
-// استيراد ديناميكي لتجنب مشاكل التوافق بين الخادم والعميل
-// استيراد ديناميكي مع تعطيل التقديم على جانب الخادم صراحةً
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
   ssr: false,
   loading: () => (
@@ -20,33 +15,21 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ) 
 });
 
-/**
- * مكون رسم بياني لعرض عدد الدروس المكتملة لكل لغة برمجة
- * @param {Object} props - خصائص المكون
- * @param {string} props.selectedMonth - الشهر المحدد
- * @param {function} props.onPeriodChange - معالج تغيير الفترة الزمنية
- * @param {string} props.className - فئات CSS إضافية
- */
 export default function CompletedLessonsChart({ selectedMonth = "مايو 2024", onPeriodChange, className = "", ...props }) {
-  // حالة للتحقق من أننا على جانب العميل
   const [isClient, setIsClient] = useState(false);
 
-  // التأكد من أننا على جانب العميل قبل عرض الرسم البياني
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   const [period, setPeriod] = useState('سنويًا');
   
-  // بيانات الرسم البياني (عدد الدروس المكتملة لكل لغة في كل شهر)
   const htmlData = [18, 22, 15, 30, 20, 25, 32, 28, 35, 42, 25, 22];
   const cssData = [12, 15, 10, 20, 15, 18, 22, 20, 25, 30, 18, 15];
   const scratchData = [25, 30, 28, 35, 32, 40, 45, 35, 38, 42, 35, 28];
   
-  // الشهور العربية
   const months = ['يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
   
-  // تهيئة خيارات الرسم البياني
   const chartOptions = {
     chart: {
       type: 'line',
@@ -66,7 +49,7 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
     stroke: {
       curve: 'smooth',
       width: 3,
-      dashArray: [5, 5, 5], // جميع الخطوط متقطعة في الحالة العادية
+      dashArray: [5, 5, 5], 
     },
     colors: ['#01DD86', '#E34C26', '#F0DB4F'],
     grid: {
@@ -114,7 +97,6 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
         }
       }
     },
-    // إعدادات التلميح عند تحريك الماوس
     tooltip: {
       enabled: true,
       followCursor: true,
@@ -176,7 +158,6 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
         }
       }
     ],
-    // تحسين تفاعلية المخطط
     states: {
       hover: {
         filter: {
@@ -189,7 +170,6 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
         }
       }
     },
-    // إعدادات النقاط على الخط
     markers: {
       size: 0,
       strokeWidth: 2,
@@ -216,7 +196,6 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
     }
   ];
 
-  // معالج تغيير الفترة الزمنية
   const handlePeriodChange = () => {
     const newPeriod = period === 'سنويًا' ? 'شهريًا' : 'سنويًا';
     setPeriod(newPeriod);
@@ -244,20 +223,15 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
             </span>
           </button>
           
-          {/* معلومات البطاقة */}
           <div className="flex flex-col items-end">
-            {/* عنوان البطاقة */}
             <h2 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-right text-[#222222] mb-1">
               عدد الدروس المكتملة
             </h2>
           </div>
         </div>
         
-        {/* حاوية الرسم البياني */}
         <div className="flex flex-row justify-between items-end w-full h-[270px] relative">
-          {/* الرسم البياني */}
           <div className="w-full h-full relative">
-            {/* تقديم الرسم البياني فقط على جانب العميل */}
             {isClient && (
               <ReactApexChart 
                 options={chartOptions} 
@@ -268,8 +242,6 @@ export default function CompletedLessonsChart({ selectedMonth = "مايو 2024",
               />
             )}
             
-            {/* مؤشر الشهر الحالي والقيمة */}
-            {/* معلومات إضافية تظهر عند التفاعل مع الرسم البياني */}
           </div>
         </div>
       </div>

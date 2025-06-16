@@ -16,10 +16,10 @@ export default function Navbar({ activePage = 'الرئيسية' }) {
   const navItems = [
     { id: 'home', text: 'الرئيسية', icon: 'Gauge', path: '/dashboard/home' },
     { id: 'courses', text: 'الدورات التدريبية', icon: 'GraduationCap', path: '/dashboard/courses' },
-    { id: 'library', text: 'المكتبة الرقمية', icon: 'Gauge', path: '/dashboard/library' },
-    { id: 'exams', text: 'المعلم الذكى AI', icon: 'Robot', path: '/exams' },
-    { id: 'stats', text: 'احصائيات التعلم', icon: 'Gauge', path: '/stats' },
-    { id: 'podcast', text: 'بودكاست', icon: 'Broadcast', path: '/podcast', comingSoon: true }
+    { id: 'library', text: 'المكتبة الرقمية', icon: 'Books', path: '/dashboard/library' },
+    { id: 'exams', text: 'المعلم الذكى AI', icon: 'Brain', path: '/dashboard/exams' },
+    { id: 'stats', text: 'احصائيات التعلم', icon: 'ChalkboardTeacher', path: '/dashboard/stats' },
+    { id: 'podcast', text: 'بودكاست', icon: 'Broadcast', path: '/dashboard/podcast', comingSoon: true }
   ];
 
   // Get button state based on item
@@ -44,16 +44,16 @@ export default function Navbar({ activePage = 'الرئيسية' }) {
       {/* Navigation Buttons */}
       <div className="flex flex-row items-center p-5 gap-[25px] relative w-auto h-[88px]   ">
         {navItems.map((item) => (
-          <NavbarButton
-            key={item.id}
-            text={item.text}
-            iconName={item.icon}
-            state={getButtonState(item)}
-            showComingSoon={item.comingSoon}
-            onClick={() => window.location.href = item.path}
-            onMouseEnter={() => setHoverItem(item.id)}
-            onMouseLeave={() => setHoverItem(null)}
-          />
+          <Link href={item.path} key={item.id} className="no-underline">
+            <NavbarButton
+              text={item.text}
+              iconName={item.icon}
+              state={getButtonState(item)}
+              showComingSoon={item.comingSoon}
+              onMouseEnter={() => setHoverItem(item.id)}
+              onMouseLeave={() => setHoverItem(null)}
+            />
+          </Link>
         ))}
       </div>
       

@@ -1,20 +1,16 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import BookCard from './BookCard';
 
 export default function BookCardWrapper(props) {
-  // Event handler defined in the client component
-  const handleClick = () => {
-    console.log('Book clicked: ', props.title);
-    // Add your book click logic here
-    // For example, navigate to book reading page
-  };
-  
   return (
-    <BookCard
-      {...props}
-      onClick={handleClick}
-    />
+    <Link href={`/dashboard/library/${props.id}`} className="block no-underline">
+      <BookCard
+        {...props}
+        onClick={() => console.log('Book clicked: ', props.title)}
+      />
+    </Link>
   );
 }

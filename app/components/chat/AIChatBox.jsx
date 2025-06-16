@@ -53,6 +53,7 @@ function AIMessage({ message }) {
 
 export default function AIChatBox({
   className = '',
+  variant = 'B', 
   ...props
 }) {
   // Predefined messages for the chat (initial state)
@@ -87,7 +88,7 @@ export default function AIChatBox({
     <div 
       className={`
         w-full max-w-[912px]  border border-[#CECECE] rounded-2xl p-4
-        flex flex-col
+        flex flex-col h-full
         ${className}
       `}
       {...props}
@@ -103,7 +104,7 @@ export default function AIChatBox({
       
       {/* Input area */}
       <div className="w-full">
-        <AIChatInput onSendMessage={handleSendMessage} variant='B' />
+        <AIChatInput onSendMessage={handleSendMessage} variant={variant} />
       </div>
     </div>
   );

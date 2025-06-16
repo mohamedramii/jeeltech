@@ -210,18 +210,17 @@ export default function LearningHoursChart({
         show: false,
       },
     },
-    // النقاط على الخط - تظهر فقط عند الـ hover مع حدود بيضاء
     markers: {
-      size: 0, // لا نقاط ثابتة
-      strokeWidth: 2, // عرض الحدود
-      strokeColors: "#ffffff", // لون الحدود الأبيض
-      fillColors: "#01DD86", // لون التعبئة الأخضر
-      colors: ["#01DD86"], // تحديد اللون الأخضر للسلسلة
+      size: 0, 
+      strokeWidth: 2,
+      strokeColors: "#ffffff", 
+      fillColors: "#01DD86", 
+      colors: ["#01DD86"], 
       hover: {
-        size: 6, // حجم النقطة عند الـ hover
-        strokeWidth: 3, // عرض الحدود عند الـ hover
-        strokeColors: "#ffffff", // لون الحدود الأبيض عند الـ hover
-        fillColors: "#01DD86" // اللون الأخضر عند الـ hover
+        size: 6, 
+        strokeWidth: 3, 
+        strokeColors: "#ffffff", 
+        fillColors: "#01DD86" 
       }
     },
     responsive: [
@@ -234,7 +233,6 @@ export default function LearningHoursChart({
         }
       }
     ],
-    // تحسين التفاعل
     states: {
       hover: {
         filter: {
@@ -248,23 +246,20 @@ export default function LearningHoursChart({
         }
       }
     },
-    // إعدادات الألوان
-    colors: ['#01DD86'], // تأكيد اللون الأخضر للرسم البياني
+    colors: ['#01DD86'],
     theme: {
       palette: 'palette1'
     }
-  }), [chartId, months]); // إضافة dependencies للـ useMemo
+  }), [chartId, months]); 
 
-  // بيانات السلسلة - مثبتة في useMemo
   const series = useMemo(() => [
     {
       name: 'ساعات التعلم',
       data: chartData,
-      color: '#01DD86' // تحديد اللون الأخضر للسلسلة
+      color: '#01DD86' 
     }
   ], [chartData]);
 
-  // معالج تغيير الفترة الزمنية - محسن بـ useCallback
   const handlePeriodChange = useCallback(() => {
     const newPeriod = period === 'سنويًا' ? 'شهريًا' : 'سنويًا';
     setPeriod(newPeriod);
@@ -281,27 +276,20 @@ export default function LearningHoursChart({
       {...props}
     >
       <div className="flex flex-col justify-end items-end w-full h-full gap-4">
-        {/* رأس البطاقة */}
         <div className="flex flex-row justify-between items-start w-full">
-          {/* زر الفترة الزمنية */}
       
           
-          {/* معلومات البطاقة */}
           <div className="flex flex-col items-end">
-            {/* عنوان البطاقة */}
             <h2 className="font-['Noto_Kufi_Arabic'] font-bold text-lg leading-[27px] text-right text-[#222222] mb-1">
               إجمالي عدد الساعات التعليمية شهريًا
             </h2>
             
-            {/* تفاصيل البطاقة */}
             <div className="flex flex-row justify-end items-center gap-4">
              
               
-              {/* إجمالي الساعات */}
               <h1 className="font-['Noto_Kufi_Arabic'] font-bold text-[32px] leading-[48px] text-[#22C55E]">
                 {totalHours} ساعة
               </h1>
-               {/* معلومات النمو */}
                <div className="flex flex-row items-center gap-1">
                {isPositiveGrowth ? (
                   <div className="w-[11px] h-[11px] relative">
@@ -335,14 +323,11 @@ export default function LearningHoursChart({
           </button>
         </div>
         
-        {/* حاوية الرسم البياني */}
         <div className="flex flex-row justify-between items-end w-full h-[270px] relative">
-          {/* الرسم البياني */}
           <div className="w-full h-full relative" id={chartId}>
-            {/* تقديم الرسم البياني فقط على جانب العميل */}
             {isClient && (
               <ReactApexChart 
-                key={chartId} // مفتاح فريد لضمان إعادة الرسم الصحيحة
+                key={chartId} 
                 options={chartOptions} 
                 series={series} 
                 type="area" 
