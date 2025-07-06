@@ -2,22 +2,7 @@
 import React from 'react';
 import { Plus, ArrowRight } from '@phosphor-icons/react';
 
-/**
- * Button component with different variants, sizes, and states
- * @param {Object} props - Component props
- * @param {string} props.variant - 'primary' | 'outline' | 'ghost'
- * @param {string} props.size - 's' | 'm' | 'lg'
- * @param {string} props.text - Button text
- * @param {boolean} props.withIcon - Whether to show an icon
- * @param {string} props.iconSrc - Path to icon image (if using Image component)
- * @param {number} props.iconWidth - Width of icon image
- * @param {number} props.iconHeight - Height of icon image
- * @param {string} props.iconAlt - Alt text for icon image
- * @param {React.ReactNode} props.icon - Custom icon component
- * @param {string} props.iconBgRadius - Border radius for icon background (e.g., 'rounded-full', 'rounded-lg')
- * @param {function} props.onClick - Click handler
- * @param {string} props.className - Additional classes
- */
+
 export default function Button({
   variant = 'primary',
   size = 'm',

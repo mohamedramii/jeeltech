@@ -1,16 +1,11 @@
 'use client';
 
-/* 
-هذا المكون هو مكون على جانب العميل فقط
-لا يمكن تقديمه على الخادم
-*/
+
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { CaretDown } from '@phosphor-icons/react';
 
-// استيراد بشكل ديناميكي لتجنب مشاكل التوافق بين الخادم والعميل
-// استيراد ديناميكي مع تعطيل التقديم على الخادم صراحةً
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
   ssr: false,
   loading: () => (
@@ -20,16 +15,7 @@ const ReactApexChart = dynamic(() => import('react-apexcharts'), {
   ) 
 });
 
-/**
- * مكون رسم بياني لعرض إجمالي عدد الساعات التعليمية شهريًا
- * @param {Object} props - خصائص المكون
- * @param {number} props.totalHours - إجمالي عدد الساعات
- * @param {number} props.growthPercentage - نسبة النمو مقارنة بالعام السابق
- * @param {string} props.currentMonth - الشهر الحالي
- * @param {number} props.currentMonthHours - عدد ساعات الشهر الحالي
- * @param {function} props.onPeriodChange - معالج تغيير الفترة الزمنية
- * @param {string} props.className - فئات CSS إضافية
- */
+
 export default function LearningHoursChart({
   totalHours = 35,
   growthPercentage = 1.3,
@@ -42,25 +28,19 @@ export default function LearningHoursChart({
   const [period, setPeriod] = useState('سنويًا');
   const [isClient, setIsClient] = useState(false);
   
-  // التأكد من أننا في البيئة العميل
   useEffect(() => {
     setIsClient(true);
   }, []);
   
-  // معرف ثابت للرسم البياني لتجنب إعادة الإنشاء
-  // إنشاء معرف فريد للرسم البياني عند تهيئة المكون فقط
   const chartId = useMemo(() => `learning-hours-chart-${Math.random().toString(36).substr(2, 9)}`, []);
   
-  // بيانات الرسم البياني (ساعات التعلم لكل شهر) - مثبتة في useMemo
   const chartData = useMemo(() => [5, 8, 6, 7, 4, 9, 7, 10, 8, 5, 4, 11], []);
   
-  // الشهور العربية - مثبتة في useMemo
   const months = useMemo(() => [
     'يناير', 'فبراير', 'مارس', 'إبريل', 'مايو', 'يونيو', 
     'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
   ], []);
   
-  // تهيئة خيارات الرسم البياني - مثبتة في useMemo لتحسين الأداء
   const chartOptions = useMemo(() => ({
     chart: {
       id: chartId,
@@ -165,12 +145,11 @@ export default function LearningHoursChart({
         }
       }
     },
-    // التلميح الذي يظهر عند المرور بالماوس
     tooltip: {
       enabled: true,
       followCursor: false,
       shared: false,
-      intersect: false, // مهم: عشان يشتغل على كل الخط
+      intersect: false, 
       theme: 'light',
       custom: function({series, seriesIndex, dataPointIndex, w}) {
         const value = series[seriesIndex][dataPointIndex];

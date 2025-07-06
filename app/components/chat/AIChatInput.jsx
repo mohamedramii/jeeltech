@@ -2,14 +2,7 @@
 import React, { useState } from 'react';
 import { PaperPlaneRight, Microphone, Plus } from '@phosphor-icons/react';
 
-/**
- * AIChatInput component - Input field for AI chat with different layouts
- * @param {Object} props - Component props
- * @param {string} props.variant - 'A' for vertical layout, 'B' for horizontal layout
- * @param {function} props.onSend - Function to call when send button is clicked
- * @param {function} props.onMic - Function to call when mic button is clicked
- * @param {function} props.onAdd - Function to call when add button is clicked
- */
+
 export default function AIChatInput({
   variant = 'A',
   onSend,

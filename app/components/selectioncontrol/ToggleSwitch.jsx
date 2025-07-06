@@ -1,19 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-/**
- * Simple ToggleSwitch component for enabling/disabling options
- * @param {Object} props - Component props
- * @param {boolean} props.checked - Whether the toggle is checked (on)
- * @param {function} props.onChange - Function to call when the toggle changes
- * @param {boolean} props.disabled - Whether the toggle is disabled
- * @param {string} props.activeColor - Color of the toggle when active
- * @param {string} props.className - Additional classes
- */
+
 export default function ToggleSwitch({
   checked = false,
   onChange,
   disabled = false,
-  activeColor = '#22C55E', // Default green color
+  activeColor = '#22C55E', 
   className = '',
   ...props
 }) {

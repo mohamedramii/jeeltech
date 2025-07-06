@@ -1,14 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-/**
- * CategoryCard component for displaying category information
- * @param {Object} props - Component props
- * @param {string} props.title - Category title
- * @param {string|Object} props.imageSrc - Category image source or Image component
- * @param {function} props.onClick - Click handler for the category card
- * @param {string} props.className - Additional classes
- */
+
 export default function CategoryCard({
   title = 'دورات البرمجة الأساسية',
   imageSrc,

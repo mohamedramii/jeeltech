@@ -1,15 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-/**
- * Simple RadioButton component for selection options
- * @param {Object} props - Component props
- * @param {boolean} props.checked - Whether the radio is checked (selected)
- * @param {string} props.name - Name for the radio button group
- * @param {string} props.value - Value for the radio button
- * @param {function} props.onChange - Function to call when the radio changes
- * @param {boolean} props.disabled - Whether the radio is disabled
- * @param {string} props.className - Additional classes
- */
+
 export default function RadioButton({
   checked = false,
   name,

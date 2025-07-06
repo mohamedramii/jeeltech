@@ -1,8 +1,6 @@
 'use client';
-
 import React from 'react';
 import * as PhosphorIcons from '@phosphor-icons/react';
-
 
 export default function NavbarButton({
   text = 'الرئيسية',
@@ -13,32 +11,45 @@ export default function NavbarButton({
   onMouseEnter,
   onMouseLeave
 }) {
-  // Get the icon component from Phosphor icons
   const IconComponent = PhosphorIcons[iconName];
-  
-  // Define styles based on state
+ 
   const getButtonStyles = () => {
     switch (state) {
       case 'selected':
-        return 'bg-[#ffffff] border-r-[7px] border-r-white/10 backdrop-blur-[30px]';
+        return 'bg-[#ffffff] backdrop-blur-[30px] ';
       case 'hover':
         return 'bg-[rgba(34,34,34,0.1)]';
       case 'default':
-        return 'bg-white border-r-[7px] border-r-white/10 backdrop-blur-[30px]';
+        return 'bg-white backdrop-blur-[30px] ';
       case 'non-selected':
       default:
-        return 'bg-transparent';
+        return 'bg-transparent hover:bg-[rgba(34,34,34,0.05)] transition-colors duration-200';
     }
   };
-  
-  // Define text color based on state
+ 
   const getTextColor = () => {
-    return ['selected', 'default'].includes(state) ? 'text-[#01DD86]' : 'text-[#535353]';
+    if (state === 'selected') {
+      return 'text-[#01DD86]';
+    } else {
+      return 'text-[#535353]';
+    }
   };
 
-  // Define icon color based on state
   const getIconColor = () => {
-    return ['selected', 'default'].includes(state) ? '#01DD86' : '#535353';
+    if (state === 'selected') {
+      return '#01DD86';
+    } else {
+      return '#535353';
+    }
+  };
+
+  const getBorderStyle = () => {
+    if (state === 'selected' || state === 'default') {
+      return {
+        borderRight: `clamp(4px, 0.36vw, 7px) solid rgba(255, 255, 255, 0.1)`
+      };
+    }
+    return {};
   };
 
   return (
@@ -47,22 +58,66 @@ export default function NavbarButton({
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        className={`box-border flex flex-row justify-end items-center py-3 px-4 gap-2 w-full h-[48px] rounded-full ${getButtonStyles()}`}
+        className={`
+          box-border flex flex-row justify-center items-center 
+          rounded-full transition-all duration-200 
+          whitespace-nowrap 
+          ${getButtonStyles()}
+        `}
+        style={{
+          padding: `clamp(6px, 0.4vw, 8px) clamp(12px, 0.8vw, 16px)`,
+          gap: `clamp(4px, 0.4vw, 8px)`,
+          height: `clamp(40px, 2.5vw, 48px)`,
+          maxWidth: `clamp(120px, 12vw, 200px)`,
+          minWidth: `clamp(80px, 8vw, 120px)`,
+          ...getBorderStyle()
+        }}
       >
         {IconComponent && (
-          <div className="w-6 h-6 flex-none">
-            <IconComponent size={24} color={getIconColor()} weight="regular" />
+          <div className="flex-shrink-0">
+            <IconComponent 
+              color={getIconColor()} 
+              weight="regular" 
+              style={{
+                width: `clamp(16px, 1.04vw, 20px)`,
+                height: `clamp(16px, 1.04vw, 20px)`
+              }}
+            />
           </div>
         )}
-        <span className={`w-full h-6 font-['Noto_Kufi_Arabic'] font-semibold text-base leading-6 ${getTextColor()}`}>
+        <span
+          className={`
+            font-['Noto_Kufi_Arabic'] font-semibold 
+            whitespace-nowrap overflow-hidden text-ellipsis
+            ${getTextColor()}
+          `}
+          style={{
+            fontSize: `clamp(11px, 0.75vw, 16px)`
+          }}
+        >
           {text}
         </span>
       </button>
-      
+     
       {/* Coming Soon Badge */}
       {showComingSoon && (
-        <div className="absolute flex flex-row justify-center items-center py-1 px-3 gap-[10px] w-[49px] h-[26px] left-[-31px] top-[-4px] bg-[#DC2626] rounded-full z-10">
-          <span className="font-['Noto_Kufi_Arabic'] font-medium text-xs leading-[18px] text-white">
+        <div 
+          className="absolute flex flex-row justify-center items-center bg-[#DC2626] rounded-full z-10"
+          style={{
+            padding: `clamp(2px, 0.26vw, 4px) clamp(8px, 0.8vw, 12px)`,
+            gap: `clamp(4px, 0.5vw, 10px)`,
+            minWidth: `clamp(35px, 2.55vw, 49px)`,
+            height: `clamp(20px, 1.35vw, 26px)`,
+            left: `clamp(-12px, -1.6vw, -31px)`,
+            top: `clamp(-2px, -0.2vw, -4px)`
+          }}
+        >
+          <span 
+            className="font-['Noto_Kufi_Arabic'] font-medium text-white leading-tight"
+            style={{
+              fontSize: `clamp(9px, 0.6vw, 12px)`
+            }}
+          >
             قريباً
           </span>
         </div>

@@ -3,19 +3,7 @@
 import React from 'react';
 import { ArrowRight } from '@phosphor-icons/react';
 
-/**
- * Category Button component for navigation
- * @param {Object} props - Component props
- * @param {string} props.text - Button text
- * @param {boolean} props.withIcon - Whether to show an icon
- * @param {string} props.iconSrc - Path to icon image (if using Image component)
- * @param {number} props.iconWidth - Width of icon image
- * @param {number} props.iconHeight - Height of icon image
- * @param {string} props.iconAlt - Alt text for icon image
- * @param {React.ReactNode} props.icon - Custom icon component
- * @param {function} props.onClick - Click handler
- * @param {string} props.className - Additional classes
- */
+
 export default function CategoryButton({
   text = 'تصفح جميع الدورات',
   withIcon = true,

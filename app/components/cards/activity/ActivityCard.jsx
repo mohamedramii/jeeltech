@@ -2,14 +2,7 @@
 import React from 'react';
 import { CalendarCheck } from '@phosphor-icons/react';
 
-/**
- * ActivityCard component for displaying the last activity on the platform
- * @param {Object} props - Component props
- * @param {string} props.dayCount - Number of days (e.g. "منذ 2 يوم")
- * @param {string} props.activityText - Activity description (e.g. "آخر نشاط في المنصة")
- * @param {function} props.onClick - Click handler for the card
- * @param {string} props.className - Additional classes
- */
+
 export default function ActivityCard({
   dayCount = "منذ 2 يوم",
   activityText = "آخر نشاط في المنصة",

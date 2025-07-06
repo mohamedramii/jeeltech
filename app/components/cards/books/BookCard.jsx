@@ -4,18 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import Button from '../../buttons/Button';
 
-/**
- * BookCard component for displaying book information
- * @param {Object} props - Component props
- * @param {string} props.title - Book title
- * @param {string} props.imageSrc - Book cover image source
- * @param {string} props.category - Book category
- * @param {function} props.onClick - Click handler for the book card button
- * @param {string} props.buttonText - Text for the call-to-action button
- * @param {string} props.buttonVariant - Button variant ('primary', 'outline', 'ghost')
- * @param {string} props.buttonSize - Button size ('s', 'm', 'lg')
- * @param {boolean} props.withIcon - Whether to show an icon in the button
- */
 export default function BookCard({
   title = 'اسم الكتاب',
   imageSrc = '/placeholder-book.jpg',
